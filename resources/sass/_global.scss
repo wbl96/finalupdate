@@ -1,0 +1,112 @@
+// Fonts
+@import url("https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&display=swap");
+
+// bootstrap
+@import "bootstrap/scss/bootstrap";
+@import "bootstrap-icons/font/bootstrap-icons.min";
+
+* {
+    font-family: "Cairo", "sans-serif";
+}
+
+body {
+    background-color: #f8f9fa;
+}
+
+.form-select:focus,
+.form-control:focus,
+.select2-container--bootstrap-5.select2-container--open .select2-selection,
+.select2-container--bootstrap-5
+    .select2-dropdown
+    .select2-search
+    .select2-search__field:focus {
+    box-shadow: unset;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+html[dir="rtl"] input[type="number"],
+html[dir="rtl"] input[type="date"],
+html[dir="rtl"] input[type="datetime-local"] {
+    text-align: right;
+}
+
+table tr td:not(:first-child),
+table tr th:not(:first-child) {
+    text-align: center;
+}
+
+label[for="dt-length-0"] {
+    display: none;
+}
+
+.dt-button-collection {
+    position: absolute;
+    margin-top: 0px !important;
+    z-index: 1;
+}
+
+.dt-button-collection div[role="menu"] {
+    /* display: flex;
+    flex-direction: column; */
+    background: #f8f9fa;
+    position: relative;
+    border: #ccc solid 1px;
+    border-radius: 0.25rem;
+    margin-top: 2px;
+}
+
+.dt-button-collection div[role="menu"] button {
+    display: block;
+    width: 100%;
+    padding: 0.5rem 1rem;
+    clear: both;
+    font-weight: 400;
+    color: #212529;
+    text-align: inherit;
+    text-decoration: none;
+    white-space: nowrap;
+    background-color: transparent;
+    border: 0;
+    border-bottom: 1px solid #ccc;
+}
+
+.dt-button-collection div[role="menu"] button:last-child {
+    border: 0;
+}
+
+.dt-button-collection div[role="menu"] button:hover {
+    background: #f0f0f0;
+}
+
+.bg-purple-b0 {
+    background-color: #673ab7b0 !important;
+}
+
+.bg-primary-b0 {
+    background-color: #0d6efdb0 !important;
+}
+
+.bg-dark-b0 {
+    background-color: #212529b0 !important;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.ajax-alert-container {
+    bottom: 10%;
+    left: 50%;
+    transform: translate(-50%, 50%);
+}

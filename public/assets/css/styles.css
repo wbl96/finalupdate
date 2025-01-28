@@ -1,0 +1,136 @@
+:root {
+    /* --main-bg-color: #5238a2;
+    --main-text-color: #5238a2;
+    --second-text-color: #646464;
+    --second-bg-color: #b4dbfa;
+    --third-text-color: #58b8c5; */
+
+    --main-bg-color: #1D1D1B;
+    --main-text-color: #1D1D1B;
+    --second-text-color: #646464;
+    --second-bg-color: #BFE2CB;
+    --third-text-color: #299C4F;
+    --fourth-color: #BFE2CB;
+}
+
+.primary-text {
+    color: var(--main-text-color);
+}
+
+.second-text {
+    color: var(--second-text-color);
+}
+
+.third-text{
+    color: var(--third-text-color);
+}
+
+.primary-bg {
+    background-color: var(--main-bg-color);
+}
+
+.secondary-bg {
+    background-color: var(--second-bg-color);
+}
+.fourth-color {
+    color: var(--fourth-color);
+}
+.fourth-bg {
+    background-color: var(--fourth-color);
+}
+
+.rounded-full {
+    border-radius: 100%;
+}
+
+#wrapper {
+    overflow-x: hidden;
+}
+#sidebar-wrapper, #wrapper {
+    /* background-image: linear-gradient(
+            to right,
+            #c4baf3,
+            #cdc2f5,
+            #d5cbf7,
+            #dcd4f8,
+            #e2ddfa
+    ); */
+    background-color: #fefefe;
+}
+
+#sidebar-wrapper {
+    width: 15rem;
+    min-height: 100vh;
+    margin-left: -15rem;
+    -webkit-transition: margin 0.25s ease-out;
+    -moz-transition: margin 0.25s ease-out;
+    -o-transition: margin 0.25s ease-out;
+    transition: margin 0.25s ease-out;
+    background-color: var(--main-bg-color);
+}
+html[dir='rtl'] #sidebar-wrapper {
+    margin-left: 0;
+    margin-right: 0;
+}
+#page-content-wrapper .logo{
+    width: 15rem;
+    margin-right: -15rem;
+}
+#sidebar-wrapper .sidebar-heading {
+    padding: 0.875rem 1.25rem;
+    font-size: 1.2rem;
+}
+
+#sidebar-wrapper .list-group {
+    width: 15rem;
+}
+
+#page-content-wrapper {
+    min-width: 100vw;
+}
+
+.toggled #page-content-wrapper {
+    min-width: calc(100vw - 15rem);
+}
+
+#wrapper.toggled #sidebar-wrapper {
+    margin-left: 0;
+}
+html[dir='rtl'] #wrapper.toggled #sidebar-wrapper {
+    margin-right: -15rem;
+}
+
+#menu-toggle {
+    cursor: pointer;
+}
+
+.list-group-item {
+    border: none;
+    padding: 20px 30px;
+}
+
+.list-group-item.active {
+    background-color: transparent;
+    color: var(--main-text-color);
+    font-weight: bold;
+    border: none;
+}
+
+@media (min-width: 768px) {
+    #sidebar-wrapper {
+        margin-left: 0;
+        margin-right: unset;
+    }
+    #page-content-wrapper {
+        min-width: 0;
+        width: 100%;
+    }
+    #wrapper.toggled #sidebar-wrapper {
+        margin-left: -15rem;
+        margin-right: 0;
+    }
+    html[dir='rtl'] #wrapper.toggled #sidebar-wrapper {
+        margin-left: 0;
+        margin-right: -15rem;
+    }
+}

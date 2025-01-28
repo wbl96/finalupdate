@@ -1,0 +1,11 @@
+// Fonts
+@import url('https://fonts.bunny.net/css?family=Cairo');
+
+// Variables
+@import "variables";
+@import "global";
+@import "loader_indicator";
+
+.dt-paging {
+    direction: ltr;
+}
