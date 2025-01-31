@@ -145,21 +145,12 @@
                 <div class="item-container">
                     <li class="nav-item">
                         <a class="navbar-brand nav-link text-white p-0 w-auto d-flex align-items-center logo-container" href="{{ route('store.dashboard') }}">
-                            <div class="logo-wrapper">
-                                <img src="{{ asset('img/logo_n.svg') }}" alt="Logo" height="55"
-                                    class="d-inline-block align-top right-radius logo-image">
-                                <div class="logo-content">
-                                    <div class="brand-title">
-                                        <div class="title-box">
-                                            <span class="title-text">وبــل</span>
+                            <div class="logo-wrapper d-flex align-items-center">
+                                <img src="{{ asset('img/logo_n.svg') }}" alt="Logo" height="55" class="d-inline-block align-top right-radius logo-image">
+                                <div class="logo-content d-flex align-items-center">
+                                    <div class="brand-title d-flex align-items-center">
+                                        <div class="title-box d-flex align-items-center">
                                             <div class="title-shadow"></div>
-                                        </div>
-                                    </div>
-                                    <div class="brand-slogan">
-                                        <div class="slogan-box">
-                                            <div class="slogan-icon">⚡</div>
-                                            <span class="slogan-text">طريقك الأذكى لسوق الجملة</span>
-                                            <div class="slogan-shine"></div>
                                         </div>
                                     </div>
                                 </div>
