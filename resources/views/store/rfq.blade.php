@@ -1083,19 +1083,19 @@
                                             </div>
                                             <div class="info-row">
                                                 <div class="info-label">رقم الحساب</div>
-                                                <div class="info-value">60000000000000</div>
+                                                <div class="info-value">6SA93 8000 0585 6080 1629 2172</div>
                                             </div>
                                             <div class="info-row">
                                                 <div class="info-label">البنك</div>
-                                                <div class="info-value">مصرف الانماء</div>
+                                                <div class="info-value">مصرف الراجحي</div>
                                             </div>
                                             <div class="info-row">
                                                 <div class="info-label">IBAN</div>
-                                                <div class="info-value">SA000000000000000000000</div>
+                                                <div class="info-value">SA93 8000 0585 6080 1629 2172</div>
                                             </div>
                                             <div class="info-row">
                                                 <div class="info-label">رقم التوجيه</div>
-                                                <div class="info-value">AAABBBCCC</div>
+                                                <div class="info-value">000000000</div>
                                             </div>
                                         </div>
                                         <div class="upload-area mt-3">

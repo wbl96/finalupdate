@@ -48,6 +48,36 @@
                                     <a class="nav-link" href="{{ route('store.reports.index') }}">التقارير</a>
                                 </li>
                             </div>
+                            <div class="item-container position-relative">
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link" href="#" role="button" onclick="toggleContactMenu(event)">
+                                        <i class="fas fa-headset text-primary"></i> اتصل بنا
+                                    </a>
+                                    <div class="contact-menu" id="contactMenu">
+                                        <div class="contact-menu-header d-md-none">
+                                            <h6 class="text-center mb-0">تواصل معنا</h6>
+                                        </div>
+                                        <div class="contact-menu-items">
+                                            <a class="contact-item email-item" href="mailto:support@wbl.sa">
+                                                <i class="fas fa-envelope me-2"></i> 
+                                                <div class="d-md-none">
+                                                    <div class="item-title">البريد الإلكتروني</div>
+                                                    <div class="item-subtitle">support@wbl.sa</div>
+                                                </div>
+                                                <span class="d-none d-md-block">support@wbl.sa</span>
+                                            </a>
+                                            <a class="contact-item whatsapp-item" href="https://wa.me/966559796744" target="_blank">
+                                                <i class="fab fa-whatsapp me-2"></i>
+                                                <div class="d-md-none">
+                                                    <div class="item-title">واتساب</div>
+                                                    <div class="item-subtitle">0559796744</div>
+                                                </div>
+                                                <span class="d-none d-md-block">0559796744</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </li>
+                            </div>
                             <div @class([
                                 'item-container',
                                 'active' => Route::currentRouteName() == 'store.wallet.index',
@@ -64,6 +94,7 @@
                                 </li>
                             </div>
                         @else
+                        
                             <div @class(['item-container'])>
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('store.showlogin') }}">تسجيل الدخول كتاجر</a>
@@ -126,35 +157,15 @@
                                 </div>
                             </div>
                         </li>
-
-                        <div class="wallet-icon-container">
-                            <div class="wallet-icon-wrapper">
-                                <i class="fas fa-wallet"></i>
-                                @if(Auth::user()->wallet)
-                                    <div class="wallet-balance">
-                                        {{ number_format(Auth::user()->wallet->balance, 0) }}
-                                    </div>
-                                @endif
-                                <div class="tooltip">المحفظة المالية</div>
-                            </div>
-                        </div>
                     </ul>
                 @endauth
             </div>
             <ul class="navbar-nav me-auto">
                 <div class="item-container">
                     <li class="nav-item">
-                        <a class="navbar-brand nav-link text-white p-0 w-auto d-flex align-items-center logo-container" href="{{ route('store.dashboard') }}">
-                            <div class="logo-wrapper d-flex align-items-center">
-                                <img src="{{ asset('img/logo_n.svg') }}" alt="Logo" height="55" class="d-inline-block align-top right-radius logo-image">
-                                <div class="logo-content d-flex align-items-center">
-                                    <div class="brand-title d-flex align-items-center">
-                                        <div class="title-box d-flex align-items-center">
-                                            <div class="title-shadow"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        <a class="navbar-brand nav-link text-white p-0 w-auto" href="{{ route('store.dashboard') }}">
+                            <img src="{{ asset('img/logo_n.svg') }}" alt="Logo" height="55"
+                                class="d-inline-block align-top right-radius">
                         </a>
                     </li>
                 </div>
@@ -185,202 +196,112 @@
             </div>
             @foreach ($categories as $cat)
                 @php
+                    $subCategories = \App\Models\ProductsSubCategories::where('category_id', $cat->id)->get();
                     $isActive =
                         Str::contains(Route::currentRouteName(), 'categories.get-products') &&
                         request()->route('category')->id == $cat->id;
                 @endphp
-                <div class="tab">
+                <div class="tab dropdown">
                     <a href="{{ Auth::check() ? route('store.categories.get-products', $cat) : route('guest.categories.get-products', $cat) }}"
-                        @class(['tab-link', 'active' => $isActive])>{{ $locale == 'ar' ? $cat->name_ar : $cate->name_en }}
+                        @class(['tab-link', 'active' => $isActive])>
+                        {{ $locale == 'ar' ? $cat->name_ar : $cat->name_en }}
+                        @if($subCategories->count() > 0)
+                            <i class="fas fa-chevron-down ms-1"></i>
+                        @endif
                     </a>
+                    @if($subCategories->count() > 0)
+                        <div class="dropdown-content">
+                            <div class="mobile-header">
+                                <div class="header-content">
+                                    <span class="category-title">{{ $locale == 'ar' ? $cat->name_ar : $cat->name_en }}</span>
+                                    <span class="category-count">الأقسام الفرعية</span>
+                                </div>
+                                <button class="mobile-close-btn" onclick="closeDropdown(this)">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+
+                            <div class="subcategories-list">
+                                <a href="{{ Auth::check() 
+                                    ? route('store.categories.get-products', ['category' => $cat]) 
+                                    : route('guest.categories.get-products', ['category' => $cat]) }}"
+                                   class="sub-category featured-category">
+                                    <div class="category-info">
+                                        <span class="sub-category-name">جميع منتجات {{ $locale == 'ar' ? $cat->name_ar : $cat->name_en }}</span>
+                                        <span class="category-description">عرض كافة المنتجات في هذا القسم</span>
+                                    </div>
+                                    <i class="fas fa-chevron-left category-arrow"></i>
+                                </a>
+
+                                @foreach($subCategories as $subCat)
+                                    <a href="{{ Auth::check() 
+                                        ? route('store.categories.get-products', ['category' => $cat, 'sub_category_id' => $subCat->id]) 
+                                        : route('guest.categories.get-products', ['category' => $cat, 'sub_category_id' => $subCat->id]) }}"
+                                       class="sub-category">
+                                        <div class="category-info">
+                                            <span class="sub-category-name">{{ $locale == 'ar' ? $subCat->name_ar : $subCat->name_en }}</span>
+                                        </div>
+                                        <i class="fas fa-chevron-left category-arrow"></i>
+                                    </a>
+                                @endforeach
+                            </div>
+                        </div>
+                    @endif
                 </div>
             @endforeach
         </div>
     </div>
-@endif
+  
 
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap');
+<div id="dropdown-portal"></div>
 
-    .logo-wrapper {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-        padding: 8px 15px;
-        position: relative;
-    }
-
-    .logo-image {
-        filter: drop-shadow(0 4px 6px rgba(139, 173, 163, 0.2));
-        transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-
-    .logo-wrapper:hover .logo-image {
-        filter: drop-shadow(0 6px 8px rgba(139, 173, 163, 0.3));
-        transform: translateY(-2px) scale(1.02);
-    }
-
-    .title-box {
-        position: relative;
-        display: inline-block;
-    }
-
-    .title-text {
-        color: #8bada3;
-        font-size: 40px;
-        font-weight: 800;
-        font-family: 'Tajawal', sans-serif;
-        position: relative;
-        z-index: 2;
-        background: linear-gradient(45deg, #8bada3, #9ec2b9);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        filter: drop-shadow(0 2px 2px rgba(139, 173, 163, 0.3));
-    }
-
-    .title-shadow {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: #8bada3;
-        filter: blur(12px);
-        opacity: 0;
-        transition: all 0.4s ease;
-        z-index: 1;
-    }
-
-    .logo-wrapper:hover .title-shadow {
-        opacity: 0.2;
-        transform: translateY(2px);
-    }
-
-    .slogan-box {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        position: relative;
-        padding: 4px 8px;
-        border-radius: 20px;
-        background: rgba(139, 173, 163, 0.1);
-        transition: all 0.3s ease;
-    }
-
-    .logo-wrapper:hover .slogan-box {
-        background: rgba(139, 173, 163, 0.15);
-        transform: translateX(5px);
-    }
-
-    .slogan-icon {
-        font-size: 14px;
-        opacity: 0.8;
-        transform: rotate(0deg);
-        transition: all 0.4s ease;
-    }
-
-    .logo-wrapper:hover .slogan-icon {
-        transform: rotate(360deg);
-        opacity: 1;
-    }
-
-    .slogan-text {
-        color: #8bada3;
-        font-size: 15px;
-        font-weight: 600;
-        font-family: 'Tajawal', sans-serif;
-    }
-
-    .slogan-shine {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 50px;
-        height: 100%;
-        background: linear-gradient(
-            90deg,
-            transparent,
-            rgba(255, 255, 255, 0.2),
-            transparent
-        );
-        transform: skewX(-20deg) translateX(-150%);
-        transition: all 0.6s ease;
-    }
-
-    .logo-wrapper:hover .slogan-shine {
-        transform: skewX(-20deg) translateX(400%);
-    }
-
-    @media (max-width: 768px) {
-        .title-text {
-            font-size: 32px;
-        }
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const portal = document.getElementById('dropdown-portal');
+        const dropdowns = document.querySelectorAll('.dropdown');
         
-        .slogan-text {
-            font-size: 13px;
-        }
+        dropdowns.forEach(dropdown => {
+            const link = dropdown.querySelector('.tab-link');
+            const content = dropdown.querySelector('.dropdown-content');
+            
+            if (content) {
+                portal.appendChild(content);
+                
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    document.querySelectorAll('.dropdown-content').forEach(menu => {
+                        menu.style.display = 'none';
+                    });
+                    
+                    const rect = link.getBoundingClientRect();
+                    content.style.top = `${rect.bottom + 10}px`;
+                    content.style.left = `${rect.left}px`;
+                    
+                    if (content.style.display !== 'block') {
+                        content.style.display = 'block';
+                        document.body.classList.add('dropdown-open');
+                    } else {
+                        content.style.display = 'none';
+                        document.body.classList.remove('dropdown-open');
+                    }
+                });
+            }
+        });
+        
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.dropdown') && !e.target.closest('.dropdown-content')) {
+                document.querySelectorAll('.dropdown-content').forEach(menu => {
+                    menu.style.display = 'none';
+                });
+                document.body.classList.remove('dropdown-open');
+            }
+        });
+    });
+    </script>
 
-        .logo-wrapper {
-            gap: 12px;
-            padding: 6px 10px;
-        }
-    }
 
-    @media (max-width: 428px) {  /* يغطي iPhone 12 Pro Max وأصغر */
-        .logo-content {
-            display: none;
-        }
 
-        .logo-wrapper {
-            padding: 4px;
-        }
 
-        .logo-image {
-            height: 45px; /* تكبير حجم اللوجو */
-        }
-
-        .navbar {
-            padding: 0 10px;
-        }
-
-        .navbar-nav {
-            padding: 0;
-        }
-
-        .item-container {
-            padding: 4px;
-        }
-
-        /* منع التمرير الأفقي */
-        .container-fluid {
-            padding-right: 0;
-            padding-left: 0;
-            max-width: 100vw;
-            overflow-x: hidden;
-        }
-    }
-
-    @media (min-width: 429px) and (max-width: 768px) {
-        .logo-wrapper {
-            gap: 8px;
-            padding: 6px 8px;
-        }
-
-        .logo-image {
-            height: 45px; /* نفس حجم اللوجو للتناسق */
-        }
-
-        .logo-content {
-            font-size: 14px;
-        }
-
-        .title-text {
-            font-size: 16px;
-            margin-bottom: 2px;
-        }
-
-        .slogan-text {
-            font-size: 12px;
-        }
-    }
-</style>
+@endif

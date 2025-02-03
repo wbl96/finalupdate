@@ -357,8 +357,8 @@ class ComposerStaticInitf01411dfcdf6e262497ced09e17d264f
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
-            1 => __DIR__ . '/..' . '/psr/http-factory/src',
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -615,6 +615,7 @@ class ComposerStaticInitf01411dfcdf6e262497ced09e17d264f
         'App\\Http\\Controllers\\Store\\RFQController' => __DIR__ . '/../..' . '/app/Http/Controllers/Store/RFQController.php',
         'App\\Http\\Controllers\\Store\\ReportsController' => __DIR__ . '/../..' . '/app/Http/Controllers/Store/ReportsController.php',
         'App\\Http\\Controllers\\Store\\SuppliersController' => __DIR__ . '/../..' . '/app/Http/Controllers/Store/SuppliersController.php',
+        'App\\Http\\Controllers\\Store\\WalletController' => __DIR__ . '/../..' . '/app/Http/Controllers/Store/WalletController.php',
         'App\\Http\\Controllers\\Suppliers\\Auth\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Suppliers/Auth/LoginController.php',
         'App\\Http\\Controllers\\Suppliers\\ClientsController' => __DIR__ . '/../..' . '/app/Http/Controllers/Suppliers/ClientsController.php',
         'App\\Http\\Controllers\\Suppliers\\DashboardController' => __DIR__ . '/../..' . '/app/Http/Controllers/Suppliers/DashboardController.php',
@@ -738,6 +739,8 @@ class ComposerStaticInitf01411dfcdf6e262497ced09e17d264f
         'App\\Models\\Store' => __DIR__ . '/../..' . '/app/Models/Store.php',
         'App\\Models\\SuppliersPolicy' => __DIR__ . '/../..' . '/app/Models/SuppliersPolicy.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
+        'App\\Models\\Wallet' => __DIR__ . '/../..' . '/app/Models/Wallet.php',
+        'App\\Models\\WalletTransaction' => __DIR__ . '/../..' . '/app/Models/WalletTransaction.php',
         'App\\Notifications\\RFQNotification' => __DIR__ . '/../..' . '/app/Notifications/RFQNotification.php',
         'App\\Observers\\CartItemsObserver' => __DIR__ . '/../..' . '/app/Observers/CartItemsObserver.php',
         'App\\Observers\\CartsObserver' => __DIR__ . '/../..' . '/app/Observers/CartsObserver.php',

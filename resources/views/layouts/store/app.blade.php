@@ -6,10 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    
-    <!-- إضافة Bootstrap Icons قبل أي CSS آخر -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
@@ -24,9 +20,7 @@
     {{-- page icon --}}
     <link rel="icon" type="image/x-icon" href="{{ asset('img/logo_n.svg') }}">
 
-
-
-<style>
+    <style>
         @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
 
         body {
@@ -335,6 +329,28 @@
             background-color: #5A7B69;
             border-color: #5A7B69;
         }
+        .wallet-icon-container {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .wallet-icon-wrapper {
+            transition: all 0.3s ease;
+        }
+
+        .wallet-icon-container:hover .wallet-icon-wrapper {
+            box-shadow: 0 0 15px rgba(108, 146, 127, 0.5);
+            transform: scale(1.05);
+        }
+
+        .wallet-balance {
+            transition: all 0.3s ease;
+        }
+
+        .wallet-icon-container:hover .wallet-balance {
+            transform: scale(1.1);
+        }
+
 
         .mt-5 {
             margin-top: 3rem !important;
@@ -522,74 +538,569 @@
             background-color: #6c927f !important;
             color: #fff;
         }
-
-       
-
-        .price-info {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-            margin-top: 10px;
-            padding: 8px;
-            border-right: 3px solid #6C927F;
-        }
-
-        .actual-price {
-            font-weight: bold;
-            color: #333;
-        }
-
-        .expected-price {
-            font-size: 0.85em;
-            color: #666;
+                /* Enhanced Section Tabs Styling */
+        .section-tabs {
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 8px;
+            padding: 15px;
+            margin: 0;
+            overflow-x: auto;
+            background: #fff;
+            border-bottom: 2px solid #f1f5f9;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
-        .expected-price i {
-            color: #6C927F;
-            font-size: 0.9em;
+        .section-tabs::-webkit-scrollbar {
+            height: 0;
+            width: 0;
         }
 
-        .price-label {
-            font-size: 0.8em;
-            color: #888;
-        }
-
-        .price-value {
-            color: #ff0000;
-            font-weight: bold;
-            font-size: 1.1em;
-        }
-
-        .currency {
-            font-size: 0.8em;
-            color: #666;
-            margin-right: 2px;
-        }
-
-        .wallet-icon-container {
+        .tab-link {
+            padding: 12px 24px;
+            color: #64748b;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            background: #f1f5f9;
             position: relative;
-            cursor: pointer;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.95rem;
+            border: 2px solid transparent;
         }
 
-        .wallet-icon-wrapper {
+        .tab-link:hover {
+            color: #1e293b;
+            background: #e2e8f0;
+            transform: translateY(-1px);
+        }
+
+        .tab-link.active {
+            background: #6C927F;
+            color: white;
+            box-shadow: 0 4px 15px rgba(108, 146, 127, 0.3);
+            border: 2px solid #5a7b69;
+        }
+
+        .tab-link i {
+            font-size: 1.2rem;
             transition: all 0.3s ease;
         }
 
-        .wallet-icon-container:hover .wallet-icon-wrapper {
-            box-shadow: 0 0 15px rgba(108, 146, 127, 0.5);
+        .tab-link:hover i {
+            transform: scale(1.1);
+        }
+
+        /* تأثيرات متقدمة */
+        .tab-link::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 14px;
+            background: linear-gradient(45deg, #6C927F, #5a7b69);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .tab-link:hover::before {
+            opacity: 0.1;
+        }
+
+        .tab-link.active::before {
+            opacity: 1;
+        }
+
+        /* تحسينات الموبايل */
+        @media (max-width: 768px) {
+            .section-tabs {
+                padding: 12px;
+                gap: 6px;
+            }
+
+            .tab-link {
+                padding: 10px 18px;
+                font-size: 0.9rem;
+                border-radius: 10px;
+            }
+
+            .tab-link i {
+                font-size: 1.1rem;
+            }
+        }
+
+        /* تحسين القائمة المنسدلة */
+        .tab.dropdown .tab-link {
+            padding-right: 40px;
+        }
+
+        .tab.dropdown .tab-link::after {
+            display: none;
+        }
+
+        .tab-link.dropdown-toggle::after {
+            margin-left: 8px;
+            vertical-align: middle;
+            border-top: 0.3em solid;
+            border-right: 0.3em solid transparent;
+            border-left: 0.3em solid transparent;
+            transition: transform 0.3s ease;
+        }
+
+        .tab-link.dropdown-toggle:hover::after {
+            transform: rotate(180deg);
+        }
+
+        .tab-link.active.dropdown-toggle::after {
+            border-top-color: white;
+        }
+
+        /* تأثيرات إضافية */
+        .tab-link:active {
+            transform: scale(0.97);
+        }
+
+        .tab-link.active:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(108, 146, 127, 0.4);
+        }
+
+        /* تحسين التباين والقراءة */
+        .tab-link {
+            text-shadow: 0 1px 1px rgba(0,0,0,0.1);
+        }
+
+        .tab-link.active {
+            text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+        }
+
+        /* إضافة تأثير نبض للتاب النشط */
+        @keyframes tabPulse {
+            0% { box-shadow: 0 4px 15px rgba(108, 146, 127, 0.3); }
+            50% { box-shadow: 0 4px 20px rgba(108, 146, 127, 0.5); }
+            100% { box-shadow: 0 4px 15px rgba(108, 146, 127, 0.3); }
+        }
+
+        .tab-link.active {
+            animation: tabPulse 2s infinite;
+        }
+
+        /* تحسينات إضافية */
+        .btn.icon-btn {
+            width: 40px;
+            height: 40px;
+            padding: 0;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            border-radius: 50%;
+            background: #6C927F;
+            color: white;
+            border: none;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 50;
+        }
+
+        .btn.icon-btn i {
+            font-size: 1rem;
+            display: inline-block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+
+        /* تنسيقات خاصة للموبايل */
+        @media (max-width: 768px) {
+            .btn.icon-btn {
+                width: 35px;
+                height: 35px;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+            }
+
+            .btn.icon-btn i {
+                font-size: 0.9rem;
+                display: inline-block !important;
+                visibility: visible !important;
+                opacity: 1 !important;
+            }
+
+            /* تأكيد ظهور الأيقونة في الموبايل */
+            .fa-shopping-cart,
+            .fa-cart-shopping {
+                display: inline-block !important;
+                visibility: visible !important;
+                opacity: 1 !important;
+            }
+        }
+
+        /* تحسينات إضافية */
+        .btn.icon-btn:hover {
+            background: #5a7b69;
             transform: scale(1.05);
         }
 
-        .wallet-balance {
+        .btn.icon-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* تأكيد عام لظهور أيقونات السلة */
+        .fa-shopping-cart,
+        .fa-cart-shopping {
+            display: inline-block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+
+        /* حذف تنسيقات زر الإغلاق */
+        .mobile-close-btn {
+            display: none; /* إخفاء زر الإغلاق */
+        }
+
+        .mobile-header {
+            display: none; /* إخفاء الهيدر المتحرك الذي يحتوي على زر الإغلاق */
+        }
+
+        /* تعديل تنسيق القائمة المنسدلة للموبايل */
+        @media (max-width: 768px) {
+            .dropdown-content {
+                position: fixed;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                width: 100%;
+                max-height: 85vh;
+                background: #fff;
+                border-radius: 25px 25px 0 0;
+                box-shadow: 0 -4px 30px rgba(0,0,0,0.15);
+                animation: slideUp 0.3s ease;
+                z-index: 1000;
+                padding-top: 15px; /* إضافة padding بدلاً من الهيدر */
+            }
+
+            .subcategories-list {
+                padding: 0; /* إزالة padding إضافي */
+            }
+        }
+
+        /* تصحيح تنسيقات زر الإغلاق للموبايل */
+        @media (max-width: 768px) {
+            .mobile-header {
+                display: flex;
+                padding: 15px 20px;
+                border-bottom: 1px solid #eee;
+                justify-content: space-between;
+                align-items: center;
+                background: #fff;
+                border-radius: 25px 25px 0 0;
+            }
+
+            .mobile-close-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 35px;
+                height: 35px;
+                border: none;
+                background: #f5f5f5;
+                border-radius: 50%;
+                color: #666;
+                cursor: pointer;
+                transition: all 0.3s ease;
+            }
+
+            .mobile-close-btn:hover {
+                background: #eee;
+            }
+
+            .dropdown-content {
+                padding-top: 0; /* إزالة padding لوجود الهيدر */
+            }
+        }
+
+        /* تصحيح مشكلة السهمين في التاب */
+        .tab.dropdown .tab-link::before {
+            content: '\f107';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
             transition: all 0.3s ease;
         }
 
-        .wallet-icon-container:hover .wallet-balance {
-            transform: scale(1.1);
+        /* إزالة السهم الافتراضي من عناصر select */
+        .tab.dropdown .tab-link.dropdown-toggle::after {
+            display: none;
         }
+
+        /* تحسين شكل القائمة المنسدلة */
+        .dropdown-content {
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .dropdown-content {
+                border-radius: 25px 25px 0 0;
+            }
+        }
+
+        /* تحسين التناسق مع الحاوية */
+        .container-fluid .section-tabs {
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+
+        /* تحسين تصميم القائمة المنسدلة */
+        .dropdown-content {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #fff;
+            min-width: 220px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid #f1f5f9;
+            overflow: hidden;
+            z-index: 1000;
+            transform-origin: top;
+            animation: dropdownFadeIn 0.3s ease;
+        }
+
+        @keyframes dropdownFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* تصميم رأس القائمة المنسدلة للموبايل */
+        .mobile-header {
+            display: none;
+            padding: 15px 20px;
+            border-bottom: 1px solid #f1f5f9;
+            background: #fff;
+        }
+
+        .mobile-header h6 {
+            color: #1e293b;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .mobile-close-btn {
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: #f8fafc;
+            border-radius: 10px;
+            color: #64748b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-close-btn:hover {
+            background: #f1f5f9;
+            color: #1e293b;
+        }
+
+        /* تصميم عناصر القائمة المنسدلة */
+        .dropdown-content .subcategories-list {
+            list-style: none;
+            padding: 8px 0;
+            margin: 0;
+        }
+
+        .dropdown-content .subcategories-list li {
+            padding: 0;
+            margin: 0;
+        }
+
+        .dropdown-content .subcategories-list a {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: #64748b;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .dropdown-content .subcategories-list a:hover {
+            background: #f8fafc;
+            color: #6C927F;
+            padding-left: 25px;
+        }
+
+        .dropdown-content .subcategories-list i {
+            margin-right: 10px;
+            font-size: 1.1rem;
+            color: #94a3b8;
+            transition: all 0.3s ease;
+        }
+
+        .dropdown-content .subcategories-list a:hover i {
+            color: #6C927F;
+            transform: translateX(3px);
+        }
+
+        /* تحسينات الموبايل */
+        @media (max-width: 768px) {
+            .dropdown-content {
+                position: fixed;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                width: 100%;
+                max-height: 85vh;
+                border-radius: 25px 25px 0 0;
+                transform: translateY(0);
+            }
+
+            .mobile-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .dropdown-content .subcategories-list {
+                max-height: calc(85vh - 60px);
+                overflow-y: auto;
+            }
+
+            .dropdown-content .subcategories-list::-webkit-scrollbar {
+                width: 5px;
+            }
+
+            .dropdown-content .subcategories-list::-webkit-scrollbar-thumb {
+                background: #e2e8f0;
+                border-radius: 10px;
+            }
+        }
+
+        /* تأثير الخلفية عند فتح القائمة في الموبايل */
+        .dropdown-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(4px);
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .dropdown-open .dropdown-backdrop {
+            opacity: 1;
+        }
+
+        /* تنسيق قائمة الاتصال */
+        .contact-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            min-width: 250px;
+            display: none;
+            z-index: 1000;
+            border: 1px solid #f1f5f9;
+            overflow: hidden;
+        }
+
+        .contact-menu-header {
+            padding: 15px;
+            border-bottom: 1px solid #f1f5f9;
+            background: #f8fafc;
+        }
+
+        .contact-menu-header h6 {
+            color: #1e293b;
+            font-weight: 600;
+        }
+
+        .contact-menu-items {
+            padding: 8px 0;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: #64748b;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            background: #f8fafc;
+            color: #6C927F;
+        }
+
+        .contact-item i {
+            font-size: 1.2rem;
+            width: 24px;
+            text-align: center;
+        }
+
+        .item-title {
+            font-weight: 600;
+            color: #1e293b;
+            font-size: 0.9rem;
+        }
+
+        .item-subtitle {
+            color: #64748b;
+            font-size: 0.85rem;
+        }
+
+        .email-item i {
+            color: #e11d48;
+        }
+
+        .whatsapp-item i {
+            color: #25d366;
+        }
+
+        /* تحسينات الموبايل */
+        @media (max-width: 768px) {
+            .contact-menu {
+                position: fixed;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                top: auto;
+                width: 100%;
+                border-radius: 25px 25px 0 0;
+                transform: translateY(100%);
+                transition: transform 0.3s ease;
+            }
+
+            .contact-menu.show {
+                transform: translateY(0);
+            }
+        }
+    </style>
+        
     </style>
     @yield('css')
 </head>
@@ -646,10 +1157,6 @@
                 $('#navbarNav').addClass('show')
             }
         }
-
-        document.querySelector('.wallet-icon-container').addEventListener('click', function() {
-            window.location.href = '{{ route("store.wallet.index") }}';
-        });
     </script>
 
     <script src="{{ asset('assets/js/app_2.js') }}"></script>
@@ -710,6 +1217,108 @@
                 dataType: 'json'
             });
         }
+    </script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const dropdowns = document.querySelectorAll('.dropdown');
+        
+        dropdowns.forEach(dropdown => {
+            const link = dropdown.querySelector('.tab-link');
+            const content = dropdown.querySelector('.dropdown-content');
+            
+            if (link && content) {
+                // للكمبيوتر - عند التحويم
+                if (window.innerWidth >= 769) {
+                    dropdown.addEventListener('mouseenter', function() {
+                        content.style.display = 'block';
+                        setTimeout(() => {
+                            content.classList.add('show');
+                        }, 10);
+                    });
+
+                    dropdown.addEventListener('mouseleave', function() {
+                        content.classList.remove('show');
+                        setTimeout(() => {
+                            content.style.display = 'none';
+                        }, 200);
+                    });
+                }
+                
+                // للموبايل - عند النقر
+                link.addEventListener('click', function(e) {
+                    if (window.innerWidth < 769) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        
+                        document.querySelectorAll('.dropdown-content').forEach(menu => {
+                            if (menu !== content) {
+                                menu.style.display = 'none';
+                            }
+                        });
+                        
+                        content.style.display = 'block';
+                        document.body.classList.add('dropdown-open');
+                    }
+                });
+            }
+        });
+        
+        // تحديث دالة إغلاق القائمة المنسدلة للموبايل
+        window.closeDropdown = function(button) {
+            if (window.innerWidth < 769) {
+                const dropdownContent = button.closest('.dropdown-content');
+                if (dropdownContent) {
+                    dropdownContent.style.display = 'none';
+                    document.body.classList.remove('dropdown-open');
+                }
+            }
+        };
+
+        // إغلاق القائمة عند النقر خارجها في الموبايل
+        document.addEventListener('click', function(e) {
+            if (window.innerWidth < 769) {
+                if (!e.target.closest('.dropdown') && !e.target.closest('.dropdown-content')) {
+                    document.querySelectorAll('.dropdown-content').forEach(menu => {
+                        menu.style.display = 'none';
+                    });
+                    document.body.classList.remove('dropdown-open');
+                }
+            }
+        });
+    });
+    </script>
+    <script>
+    function toggleContactMenu(event) {
+        event.preventDefault();
+        const menu = document.getElementById('contactMenu');
+        const isShown = menu.style.display === 'block';
+        
+        // إغلاق جميع القوائم المنسدلة الأخرى
+        document.querySelectorAll('.dropdown-content').forEach(el => {
+            el.style.display = 'none';
+        });
+
+        // تبديل حالة القائمة
+        menu.style.display = isShown ? 'none' : 'block';
+        
+        // إضافة خلفية معتمة للموبايل
+        if (window.innerWidth <= 768) {
+            menu.classList.toggle('show');
+            document.body.classList.toggle('dropdown-open');
+        }
+    }
+
+    // إغلاق القائمة عند النقر خارجها
+    document.addEventListener('click', function(e) {
+        const menu = document.getElementById('contactMenu');
+        const button = e.target.closest('.nav-item.dropdown');
+        
+        if (!button && menu.style.display === 'block') {
+            menu.style.display = 'none';
+            menu.classList.remove('show');
+            document.body.classList.remove('dropdown-open');
+        }
+    });
     </script>
 </body>
 
